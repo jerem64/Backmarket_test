@@ -3,15 +3,6 @@ import pandas as pd
 import faiss
 import torch
 from transformers import AutoTokenizer, AutoModel
-import string
-import nltk
-from nltk.corpus import stopwords
-from bs4 import BeautifulSoup
-
-
-nltk.download('wordnet')
-nltk.download('stopwords')
-nltk.download('punkt')
 
 
 #prepare the necessary data
@@ -67,55 +58,6 @@ def find_nearest_texts(input_text, num_neighbors=3):
 
   return nearest_texts
 
-def Nettoyer_HTML(text):
-    text = BeautifulSoup(text, 'html.parser').get_text()
-    return text
-
-def Nettoyer_Majuscules(text):
-    text = text.lower()
-    return text
-
-def Nettoyer_Contractions(text):
-    # On remplace les contraction par des mots complets
-    contraction_map = {"ain't": "am not", "aren't": "are not", "can't": "cannot", "could've": "could have", "couldn't": "could not", "didn't": "did not", "doesn't": "does not", "don't": "do not", "hadn't": "had not", "hasn't": "has not",
-                       "haven't": "have not", "he'd": "he would", "he'll": "he will", "he's": "he is", "i'd": "I would", "i'll": "I will", "i'm": "I am", "i've": "I have", "isn't": "is not", "it's": "it is", "let's": "let us", "mustn't": "must not",
-                       "shan't": "shall not", "she'd": "she would", "she'll": "she will", "she's": "she is", "should've": "should have", "shouldn't": "should not", "that's": "that is", "there's": "there is", "they'd": "they would",
-                       "they'll": "they will", "they're": "they are", "they've": "they have", "we'd": "we would", "we're": "we are", "we've": "we have", "weren't": "were not", "what'll": "what will", "what're": "what are", "what's": "what is",
-                       "what've": "what have", "where's": "where is", "who'd": "who would", "who'll": "who will", "who're": "who are", "who's": "who is", "who've": "who have", "won't": "will not", "would've": "would have", "wouldn't": "would not",
-                       "you'd": "you would", "you'll": "you will", "you're": "you are", "you've": "you have", "'tis": "it is", "'twas": "it was", "'s": "is"}
-
-    words = text.split()
-    new_words = []
-    for word in words:
-        if word in contraction_map:
-            new_words.append(contraction_map[word])
-        else:
-            new_words.append(word)
-    text = " ".join(new_words)
-    return text
-
-def Nettoyer_Ponctuation(text):
-    punctuations = string.punctuation.replace('#', '').replace('+', '').replace(".", "")
-    text = " ".join(word.strip(punctuations) for word in text.split())
-    return text
-
-def Nettoyer_Stop_words(text):
-    stop_words = set(stopwords.words('english'))
-    tokens = nltk.word_tokenize(text.lower())
-    filtered_tokens = [token for token in tokens if token not in stop_words]
-    text = ' '.join(filtered_tokens)
-    return text
-
-def Nettoyer_text(text):
-    text = Nettoyer_HTML(text)
-    text = Nettoyer_Majuscules(text)
-    text = Nettoyer_Contractions(text)
-    text = Nettoyer_Ponctuation(text)
-    text = Nettoyer_Stop_words(text)
-    return text
-
-
-
 
 #Create the form
 st.title('Articles Recomendation Engine')
@@ -125,8 +67,7 @@ article = st.text_area(label="Write or copy & paste your an article summary here
 st.text("")
 
 if st.button('Search similar'):
-    cleaned_article = Nettoyer_text(article)
-    nearest_texts = find_nearest_texts(cleaned_article)
+    nearest_texts = find_nearest_texts(article)
     for i, text in enumerate(nearest_texts, 1):
         st.header(i)
         st.text(text)
