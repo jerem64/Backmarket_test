@@ -13,4 +13,7 @@ pip install streamlit
 
 4. Launch in browser
 ```bash
-streamlit run ./Articles_recommandation.py 
+streamlit run ./Articles_recommandation.py
+
+# Test it here
+https://jch-backmarket-test.streamlit.app/
