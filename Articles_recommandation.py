@@ -108,14 +108,9 @@ article = st.text_area(label="Write or copy & paste your an article summary here
 st.text("")
 
 if st.button('Search similar'):
-    if not nltk.data.find('corpora/wordnet.zip'):
-        nltk.download('wordnet')
-
-    if not nltk.data.find('corpora/stopwords.zip'):
-        nltk.download('stopwords')
-
-    if not nltk.data.find('tokenizers/punkt'):
-        nltk.download('punkt')
+    nltk.download('wordnet')
+    nltk.download('stopwords')
+    nltk.download('punkt')
     
     if "df" not in st.session_state:
         st.session_state.df = pd.read_csv("./dataset.csv")
