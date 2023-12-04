@@ -130,6 +130,21 @@ if st.button('Search similar'):
     for i, text in enumerate(nearest_texts, 1):
         st.header(i)
         st.text(text)
+
+st.image('./resources/1.png', caption='Goal')
+st.text("")
+st.image('./resources/2.png', caption='ML Framing')
+st.text("")
+st.image('./resources/3.png', caption='Baseline Solution')
+st.text("")
+st.image('./resources/4.png', caption='Advanced solution')
+st.text("")
+st.image('./resources/5.png', caption='Host in the cloud, GCP')
+st.text("")
+st.image('./resources/6.png', caption='Host in the cloud, AWS')
+st.text("")
+st.image('./resources/7.png', caption='Host in the cloud at scale')
+
        
             
 
