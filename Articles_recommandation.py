@@ -118,7 +118,7 @@ def Nettoyer_text(text):
 
 
 #Create the form
-st.title('Articles Recomendation Engine') Get "http://localhost:8501/script-health-check": EOF
+st.title('Articles Recomendation Engine')
 
 st.header('Base Article')
 article = st.text_area(label="Write or copy & paste your an article summary here.")
