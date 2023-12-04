@@ -11,27 +11,8 @@ from bs4 import BeautifulSoup
 
 
 
-
-def __init__(self):
-    nltk.download('wordnet')
-    nltk.download('stopwords')
-    nltk.download('punkt')
-
-    #prepare the necessary data
-    DIMENSION = 768
-    if "df" not in st.session_state:
-        st.session_state.df = pd.read_csv("./dataset.csv")
-
-    if "tokenizer" not in st.session_state:
-        st.session_state.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-
-    if "model" not in st.session_state:
-        st.session_state.model = AutoModel.from_pretrained("bert-base-uncased")
-
-    if "index" not in st.session_state:
-        st.session_state.index = faiss.read_index("./bert_embeddings.index")
-
-
+#prepare the necessary data
+DIMENSION = 768
 
 
 def bert_encoder(input):
@@ -127,6 +108,27 @@ article = st.text_area(label="Write or copy & paste your an article summary here
 st.text("")
 
 if st.button('Search similar'):
+    if not nltk.data.find('corpora/wordnet.zip'):
+        nltk.download('wordnet')
+
+    if not nltk.data.find('corpora/stopwords.zip'):
+        nltk.download('stopwords')
+
+    if not nltk.data.find('tokenizers/punkt'):
+        nltk.download('punkt')
+    
+    if "df" not in st.session_state:
+        st.session_state.df = pd.read_csv("./dataset.csv")
+
+    if "tokenizer" not in st.session_state:
+        st.session_state.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+
+    if "model" not in st.session_state:
+        st.session_state.model = AutoModel.from_pretrained("bert-base-uncased")
+
+    if "index" not in st.session_state:
+        st.session_state.index = faiss.read_index("./bert_embeddings.index")
+
     cleaned_article = Nettoyer_text(article)
     nearest_texts = find_nearest_texts(cleaned_article)
     for i, text in enumerate(nearest_texts, 1):
