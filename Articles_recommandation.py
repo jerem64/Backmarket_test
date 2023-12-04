@@ -9,25 +9,27 @@ from nltk.corpus import stopwords
 from bs4 import BeautifulSoup
 
 
-nltk.download('wordnet')
-nltk.download('stopwords')
-nltk.download('punkt')
 
 
-#prepare the necessary data
-DIMENSION = 768
 
-if "df" not in st.session_state:
-    st.session_state.df = pd.read_csv("./dataset.csv")
+def __init__(self):
+    nltk.download('wordnet')
+    nltk.download('stopwords')
+    nltk.download('punkt')
 
-if "tokenizer" not in st.session_state:
-    st.session_state.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    #prepare the necessary data
+    DIMENSION = 768
+    if "df" not in st.session_state:
+        st.session_state.df = pd.read_csv("./dataset.csv")
 
-if "model" not in st.session_state:
-    st.session_state.model = AutoModel.from_pretrained("bert-base-uncased")
+    if "tokenizer" not in st.session_state:
+        st.session_state.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-if "index" not in st.session_state:
-    st.session_state.index = faiss.read_index("./bert_embeddings.index")
+    if "model" not in st.session_state:
+        st.session_state.model = AutoModel.from_pretrained("bert-base-uncased")
+
+    if "index" not in st.session_state:
+        st.session_state.index = faiss.read_index("./bert_embeddings.index")
 
 
 
