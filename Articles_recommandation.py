@@ -104,7 +104,9 @@ def Nettoyer_text(text):
 st.title('Articles Recomendation Engine')
 
 st.header('Base Article')
-article = st.text_area(label="Write or copy & paste your an article summary here.")
+article = st.text_area(label="""Write or copy & paste your an article summary here. Example: 
+                       
+                       Apple will announce its new products this afternoon. The value of Apple is rising.""")
 st.text("")
 
 if st.button('Search similar'):
