@@ -1,3 +1,6 @@
 faiss_cpu==1.7.4
 transformers==4.16.2
 torch==2.1
+nltk==3.6.6
+gensim==4.3.2
+beautifulsoup4==4.11.2
